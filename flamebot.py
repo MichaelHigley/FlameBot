@@ -8,8 +8,10 @@
 # Timer lasts for 5 mins
 import os
 import discord
+import datetime
 from dotenv import load_dotenv
 from discord.ext import commands
+
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -26,6 +28,12 @@ async def on_ready():
 @bot.command(name='vote', help='~vote user "message here". Then vote using emotes')
 async def flamecheck(ctx, *args):
     arguments = ' '.join(args)
+    embed = discord.Embed(title="Vote",
+                    description='\"' + arguments + '\"',
+                    color=ctx.author.color,
+                    timestamp=datetime.datetime.now())
+
+            
     msg = await ctx.send('Vote whether this is flame or not: \n' + '\"' + arguments + '\"')
     await msg.add_reaction('✅')
     await msg.add_reaction('❎')
